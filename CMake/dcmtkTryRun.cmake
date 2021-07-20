@@ -85,7 +85,7 @@ function(DCMTK_TRY_RUN_CROSS RUN_RESULT_VAR COMPILE_RESULT_VAR bindir srcfile)
 endfunction()
 
 macro(DCMTK_TRY_RUN)
-    if(CMAKE_CROSSCOMPILING)
+    if(DCMTK_CROSS_COMPILING)
         DCMTK_TRY_RUN_CROSS(${ARGN})
     else()
         try_run(${ARGN})

@@ -197,7 +197,7 @@ enable_testing()
 # Include appropriate modules and set required variables for cross compiling
 #-----------------------------------------------------------------------------
 
-if(CMAKE_CROSSCOMPILING)
+if(DCMTK_CROSS_COMPILING)
   if(WIN32)
     include("${DCMTK_CMAKE_INCLUDE}CMake/dcmtkUseWine.cmake")
     DCMTK_SETUP_WINE()
@@ -219,7 +219,7 @@ include("${DCMTK_CMAKE_INCLUDE}CMake/dcmtkMacros.cmake")
 # (i.e. start the emulator if required)
 #-----------------------------------------------------------------------------
 
-if(CMAKE_CROSSCOMPILING)
+if(DCMTK_CROSS_COMPILING)
   unset(DCMTK_UNIT_TESTS_UNSUPPORTED_WARN_ONCE CACHE)
   if(ANDROID)
     unset(DCMTK_TRY_RUN_ANDROID_RUNTIME_INSTALLED CACHE)

@@ -75,7 +75,7 @@ INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
 # Unit test related configuration/setup
 # ----------------------------------------------------------------------------
 
-if(CMAKE_CROSSCOMPILING)
+if(DCMTK_CROSS_COMPILING)
   if(WIN32)
     set(DCMTK_RUN_CTEST_SCRIPT "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/dcmtkCTestRunWine.cmake" CACHE INTERNAL "path to the CMake script for launching a unit test as a detached Wine process in the prepared wineprefix")
   elseif(ANDROID)
@@ -132,7 +132,7 @@ endif()
 # Configure files needed for running the unit tests and cleanup
 #-----------------------------------------------------------------------------
 
-if(CMAKE_CROSSCOMPILING)
+if(DCMTK_CROSS_COMPILING)
   if(WIN32)
     string(REPLACE ";" "${ENVIRONMENT_PATH_SEPARATOR}" DCMDICTPATH "${DCMTK_DICOM_DICTIONARIES}")
     configure_file("${DCMTK_SOURCE_DIR}/CMake/CTest/CTestCustomWine.cmake.in"
