@@ -69,7 +69,9 @@ configure_file("${DCMTK_SOURCE_DIR}/CMake/osconfig.h.in"
 # Prepare arith.h
 #-----------------------------------------------------------------------------
 
-INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
+if(NOT DCMTK_CROSS_COMPILING)
+  INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
+endif()
 
 # ----------------------------------------------------------------------------
 # Unit test related configuration/setup
