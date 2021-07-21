@@ -69,7 +69,7 @@ configure_file("${DCMTK_SOURCE_DIR}/CMake/osconfig.h.in"
 # Prepare arith.h
 #-----------------------------------------------------------------------------
 
-if(NOT DCMTK_CROSS_COMPILING)
+if(NOT ANDROID) # DCMTK_CROSS_COMPILING
   INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
 endif()
 
