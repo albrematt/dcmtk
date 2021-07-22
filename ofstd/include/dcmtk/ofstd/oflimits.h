@@ -23,7 +23,6 @@
 #define OFLIMITS_H
 
 #include "dcmtk/config/osconfig.h" // make sure OS specific configuration is included first
-#include "dcmtk/config/arith.h"
 
 #include "dcmtk/ofstd/oftypes.h"
 
@@ -62,19 +61,19 @@ using OFnumeric_limits = std::numeric_limits<T>;
 template<typename T>
 struct OFnumeric_limits : std::numeric_limits<T>
 {
-    static const int max_digits10 = 0;
+    //static const int max_digits10 = 0;
     static inline T lowest() { return (std::numeric_limits<T>::min)(); }
 };
 template<>
 struct OFnumeric_limits<float> : std::numeric_limits<float>
 {
-    static const int max_digits10 = DCMTK_FLOAT_MAX_DIGITS10;
+    //static const int max_digits10 = DCMTK_FLOAT_MAX_DIGITS10;
     static inline float lowest() { return -(std::numeric_limits<float>::max)(); }
 };
 template<>
 struct OFnumeric_limits<double> : std::numeric_limits<double>
 {
-    static const int max_digits10 = DCMTK_DOUBLE_MAX_DIGITS10;
+    //static const int max_digits10 = DCMTK_DOUBLE_MAX_DIGITS10;
     static inline double lowest() { return -(std::numeric_limits<double>::max)(); }
 };
 
@@ -85,6 +84,8 @@ struct OFnumeric_limits<double> : std::numeric_limits<double>
 #include <climits>
 #include <cfloat>
 #include <cmath>
+
+#include "dcmtk/config/arith.h"
 
 /** Enumeration constants of type OFfloat_round_style indicate the rounding style
  *  used by floating-point arithmetics whenever a result of an expression is stored

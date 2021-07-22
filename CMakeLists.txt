@@ -69,11 +69,9 @@ configure_file("${DCMTK_SOURCE_DIR}/CMake/osconfig.h.in"
 # Prepare arith.h
 #-----------------------------------------------------------------------------
 
-#INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
-
-# Add the arith.h.in file
-configure_file("${DCMTK_SOURCE_DIR}/CMake/arith.h.in"
-               "${DCMTK_BINARY_DIR}/config/include/dcmtk/config/arith.h")
+if(NOT DCMTK_ENABLE_STL_LIMITS)
+  INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
+endif()
 
 # ----------------------------------------------------------------------------
 # Unit test related configuration/setup
@@ -113,9 +111,13 @@ include(CMake/dcmtkAfterModules.cmake NO_POLICY_SCOPE)
 
 # Install global headers
 install(FILES "${DCMTK_BINARY_DIR}/config/include/dcmtk/config/osconfig.h"
-              "${DCMTK_BINARY_DIR}/config/include/dcmtk/config/arith.h"
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/dcmtk/config"
         COMPONENT include)
+if(NOT DCMTK_ENABLE_STL_LIMITS)
+  install(FILES "${DCMTK_BINARY_DIR}/config/include/dcmtk/config/arith.h"
+          DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/dcmtk/config"
+          COMPONENT include)
+endif()
 
 # Install DCMTK's general documentation files
 install(FILES ANNOUNCE COPYRIGHT CREDITS FAQ HISTORY VERSION
