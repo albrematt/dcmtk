@@ -69,9 +69,11 @@ configure_file("${DCMTK_SOURCE_DIR}/CMake/osconfig.h.in"
 # Prepare arith.h
 #-----------------------------------------------------------------------------
 
-if(NOT ANDROID) # DCMTK_CROSS_COMPILING
-  INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
-endif()
+#INSPECT_FUNDAMENTAL_ARITHMETIC_TYPES()
+
+# Add the arith.h.in file
+configure_file("${DCMTK_SOURCE_DIR}/CMake/arith.h.in"
+               "${DCMTK_BINARY_DIR}/config/include/dcmtk/config/arith.h")
 
 # ----------------------------------------------------------------------------
 # Unit test related configuration/setup
