@@ -29,23 +29,23 @@ if(BUILD_APPS)
   # this is needed since the built-in dictionary code is created by the tools below and thus those tools
   # statically link the few required dcmdata source files instead of linking to dcmdata as a whole.
   set_target_properties(mkdictbi mkdeftag PROPERTIES COMPILE_DEFINITIONS "DCMDATA_BUILD_DICTIONARY")
+
+  DCMTK_TARGET_LINK_MODULES(mkdictbi ofstd oflog)
+  DCMTK_TARGET_LINK_MODULES(mkdeftag ofstd oflog)
+
+  add_custom_target(updatedeftag
+          COMMAND mkdeftag -o "${dcmdata_SOURCE_DIR}/include/dcmtk/dcmdata/dcdeftag.h" ${DICTIONARIES}
+          DEPENDS mkdeftag
+          WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+          COMMENT "Generate a new include file of defined tags")
+  
+  add_custom_target(updatebuiltindict
+          COMMAND mkdictbi -o dcdictbi.cc ${DICTIONARIES}
+          DEPENDS mkdictbi
+          WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+          COMMENT "Generate a builtin data dictionary")
+  add_custom_target(mkvrscan
+          COMMAND flex -8 --header-file=vrscanl.h --outfile=vrscanl.c vrscanl.l
+          WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+          COMMENT "Generate vrscanl.c and vrscanl.h")
 endif()
-DCMTK_TARGET_LINK_MODULES(mkdictbi ofstd oflog)
-DCMTK_TARGET_LINK_MODULES(mkdeftag ofstd oflog)
-
-add_custom_target(updatedeftag
-        COMMAND mkdeftag -o "${dcmdata_SOURCE_DIR}/include/dcmtk/dcmdata/dcdeftag.h" ${DICTIONARIES}
-        DEPENDS mkdeftag
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        COMMENT "Generate a new include file of defined tags")
-
-add_custom_target(updatebuiltindict
-        COMMAND mkdictbi -o dcdictbi.cc ${DICTIONARIES}
-        DEPENDS mkdictbi
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        COMMENT "Generate a builtin data dictionary")
-
-add_custom_target(mkvrscan
-        COMMAND flex -8 --header-file=vrscanl.h --outfile=vrscanl.c vrscanl.l
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-        COMMENT "Generate vrscanl.c and vrscanl.h")
